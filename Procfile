@@ -1,2 +1,2 @@
 web: gunicorn
-wsgi: app
+wsgi: x-recruit-api

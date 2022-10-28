@@ -7,4 +7,4 @@ app.register_blueprint(players_controller_bp)
 
 # Run app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
