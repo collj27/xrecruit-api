@@ -1,5 +1,5 @@
 from flask import Flask
-from controllers.players_controller import players_controller_bp
+from app.controllers.players_controller import players_controller_bp
 
 # create application object and register blueprints
 app = Flask(__name__)
