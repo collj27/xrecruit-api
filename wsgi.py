@@ -1,11 +1,22 @@
 from flask import Flask
-from controllers.players_controller import players_controller_bp
+from flask_cors import CORS
 
-# create application object and register blueprints
-app = Flask(__name__)
-app.register_blueprint(players_controller_bp)
+from utils.cors_config import CorsConfig
 
 
-# Run app
-if __name__ == '__main__':
-    app.run()
+def create_app():
+    app = Flask(__name__)
+    cors_config = CorsConfig()
+
+    CORS(app,
+         origins=[cors_config.CORS_ALLOWED_ORIGINS],
+         supports_credentials=cors_config.CORS_SUPPORTS_CREDENTIALS)
+
+    # Set the configurations
+    app.config.from_object(cors_config)
+
+    # register blueprints
+    from controllers.players_controller import players_controller_bp
+    app.register_blueprint(players_controller_bp)
+
+    return app
