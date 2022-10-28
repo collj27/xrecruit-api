@@ -9,7 +9,7 @@ def create_app():
     cors_config = CorsConfig()
 
     CORS(app,
-         origins=[cors_config.CORS_ALLOWED_ORIGINS],
+         origins=[cors_config.CORS_ALLOW_ORIGIN],
          supports_credentials=cors_config.CORS_SUPPORTS_CREDENTIALS)
 
     # Set the configurations
