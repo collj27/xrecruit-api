@@ -1,28 +1,23 @@
+import json
+
 from flask import make_response, Blueprint
+from models.player_info import db, PlayerInfo
 
 # create blueprint
 players_controller_bp = Blueprint('players_controller', __name__)
 
 
-@players_controller_bp.route('/', methods=['GET'])
-def get_players():
-    return make_response(
-        'Test worked!',
-        200
-    )
-
-
-@players_controller_bp.route('/players_by_id', methods=['GET'])
+@players_controller_bp.route('/test', methods=['GET'])
 def get_players_by_id():
+    # player_info = db.session.execute(db.select(PlayerInfo).filter_by(id=1)).one()
+    player_info = db.get_or_404(PlayerInfo, 1)
 
-    return {
-        "Position": "QB",
-        "FirstName": "Archie",
-        "LastName": "Manning Jr.",
-        "Description": "Arch Manning, the No. 1-ranked player in 247Sports' Class of 2023, made huge waves"
-                       "Thursday by ending his whirlwind recruitment and announcing his"
-                       "commitment to Texas over Alabama and Georgia. Manning, the nephew of legendary"
-                       "quarterbacks Peyton and Eli Manning and grandson to College Football Hall of Famer Archie"
-                       "Manning, has been the most sought-after recruiting prospect since the days of Trevor Lawrence"
-                       "and Justin Fields."
-    }
+    return player_info.to_dict()
+
+
+@players_controller_bp.route('/players', methods=['GET'])
+def get_players():
+    result_list = db.session.execute(db.select(PlayerInfo)).scalars().all()
+    player_list = [result.to_dict() for result in result_list]
+
+    return player_list
