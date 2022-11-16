@@ -5,9 +5,6 @@ db = SQLAlchemy()
 
 
 class PlayerInfo(db.Model, SerializerMixin):
-    __table_args__ = {
-        'schema': 'players'
-    }
     id = db.Column(db.Integer, primary_key=True)
     position_id = db.Column(db.Integer, unique=False, nullable=False)
     first_name = db.Column(db.String(30), unique=False, nullable=False)
