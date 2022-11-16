@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
+# TODO: add flask migration
 def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
@@ -16,7 +16,7 @@ def create_app():
 
     # import models, init db, and create tables
     # TODO: figure out better way to handle model imports
-    from api.models import player
+    from api.models import player, player_stats
     db.init_app(app)
     with app.app_context():
         db.create_all()
