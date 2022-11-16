@@ -16,7 +16,7 @@ def create_app():
 
     # import models, init db, and create tables
     # TODO: figure out better way to handle model imports
-    from api.models import player_info, position
+    from api.models import player
     db.init_app(app)
     with app.app_context():
         db.create_all()
