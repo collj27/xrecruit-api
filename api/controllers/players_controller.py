@@ -8,7 +8,6 @@ players_controller_bp = Blueprint('players_controller', __name__)
 # fetch all players
 @players_controller_bp.route('/players', methods=['GET'])
 def get_players():
-    db.session.execute(db.select(Player))
     result_list = db.session.execute(db.select(Player)).scalars().all()
     player_list = [result.to_dict() for result in result_list]
 

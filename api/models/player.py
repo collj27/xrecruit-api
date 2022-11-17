@@ -19,4 +19,4 @@ class Player(db.Model, SerializerMixin):
 
 
 def __repr__(self):
-    return f"<PlayerInfo {self.player_id} >"
+    return f"<Player {self.player_id} >"
