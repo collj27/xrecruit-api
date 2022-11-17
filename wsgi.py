@@ -1,11 +1,7 @@
-from flask import Flask
-from controllers.players_controller import players_controller_bp
+"""App entry point."""
+from api import create_app
 
-# create application object and register blueprints
-app = Flask(__name__)
-app.register_blueprint(players_controller_bp)
+app = create_app()
 
-
-# Run app
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()
