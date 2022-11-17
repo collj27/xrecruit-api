@@ -15,7 +15,8 @@ class Player(db.Model, SerializerMixin):
     weight = db.Column(db.Integer, unique=False, nullable=False)
     high_school = db.Column(db.String(30), unique=False, nullable=False)
     birth_date = db.Column(db.DateTime, unique=False, nullable=False)
+    player_stats = db.relationship('PlayerStats', lazy=True)
 
 
 def __repr__(self):
-    return f"<PlayerInfo {self.id} >"
+    return f"<Player {self.player_id} >"
