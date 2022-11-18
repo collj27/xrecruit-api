@@ -7,7 +7,9 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    # Since SQLAlchemy 1.4.x has removed support for the 'postgres://' URI scheme,
+    # update the URI to the postgres database to use the supported 'postgresql://' scheme
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://", 1)
 
 
 class ProductionConfig(Config):
