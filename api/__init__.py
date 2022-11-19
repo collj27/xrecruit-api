@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -14,6 +15,8 @@ def create_app():
     # register blueprints
     from api.controllers.players_controller import players_controller_bp
     app.register_blueprint(players_controller_bp)
+
+    CORS(app, CORS_ORIGINS=os.environ['CORS_ORIGINS'])
 
     # import models, init db, and create tables
     # TODO: figure out better way to handle model imports
