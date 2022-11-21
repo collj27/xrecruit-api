@@ -5,7 +5,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-
 # TODO: add flask migration
 def create_app():
     app = Flask(__name__)
