@@ -25,7 +25,7 @@ def get_school_by_id(school_id):
 
     # get school object
     school_info = db.get_or_404(School, school_id).to_dict()
-    search_parameter = school_info['name'] + " +Football"
+    search_parameter = school_info['name'] + " AND College AND Football"
 
     # TODO: adjust these parameters
     # get news articles by school name
@@ -34,9 +34,14 @@ def get_school_by_id(school_id):
                      "&pageSize=5" \
                      "&searchIn=title,description" \
                      "&apiKey={api_key}".format(keywords=search_parameter, api_key=os.environ['NEWS_API_KEY'])
+    print(request_string)
     news = requests.get(request_string).json()
 
     # add news to school object
     school_info['news'] = news
+
+    # add logo url
+    url = create_presigned_url(school_id, os.environ['SCHOOL_IMG_BUCKET'], os.environ['SCHOOL_IMG_PREFIX'])
+    school_info['school_img_url'] = url
 
     return school_info
