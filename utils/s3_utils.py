@@ -16,6 +16,5 @@ def create_presigned_url(object_id, bucket, object_prefix):
         print(e)
         return "Error"
     # The response contains the presigned URL
-    print(response)
     return response
 

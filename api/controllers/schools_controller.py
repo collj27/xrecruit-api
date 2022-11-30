@@ -25,20 +25,19 @@ def get_school_by_id(school_id):
 
     # get school object
     school_info = db.get_or_404(School, school_id).to_dict()
-    search_parameter = school_info['name'] + " AND College AND Football"
+    search_query = school_info['name'] + " football news"
 
     # TODO: adjust these parameters
+    #https://developers.google.com/custom-search/v1/introduction
     # get news articles by school name
-    request_string = "https://newsapi.org/v2/everything?" \
-                     "q={keywords}" \
-                     "&pageSize=5" \
-                     "&searchIn=title,description" \
-                     "&apiKey={api_key}".format(keywords=search_parameter, api_key=os.environ['NEWS_API_KEY'])
-    print(request_string)
+    request_string = "https://www.googleapis.com/customsearch/v1?" \
+                     "key={api_key}" \
+                     "&cx={search_engine_id}" \
+                     "&q={query}" \
+                     "&num=5".format(api_key=os.environ['GOOGLE_API_KEY'],
+                                     search_engine_id=os.environ['SEARCH_ENGINE_ID'], query=search_query)
     news = requests.get(request_string).json()
-
-    # add news to school object
-    school_info['news'] = news
+    school_info['news'] = news['items']
 
     # add logo url
     url = create_presigned_url(school_id, os.environ['SCHOOL_IMG_BUCKET'], os.environ['SCHOOL_IMG_PREFIX'])
