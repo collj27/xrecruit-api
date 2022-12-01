@@ -2,10 +2,12 @@ import os
 
 from flask import Blueprint
 from api.db_models.player import db, Player
+from api.schemas.PlayerSchema import PlayerSchema
 from utils.s3_utils import create_presigned_url
 
 # create blueprint
 players_controller_bp = Blueprint('players_controller', __name__)
+player_schema = PlayerSchema()
 
 
 # fetch all players
@@ -20,8 +22,8 @@ def get_players():
 # fetch players by id
 @players_controller_bp.route('/players/<player_id>', methods=['GET'])
 def get_player_by_id(player_id):
-    player_info = db.get_or_404(Player, player_id).to_dict()
-    url = create_presigned_url(player_id, os.environ['PLAYER_IMG_BUCKET'], os.environ['PLAYER_IMG_PREFIX'])
-    player_info['player_img_url'] = url
+    player_info = db.get_or_404(Player, player_id)#.to_dict()
+    #url = create_presigned_url(player_id, os.environ['PLAYER_IMG_BUCKET'], os.environ['PLAYER_IMG_PREFIX'])
+   # player_info['player_img_url'] = url
 
-    return player_info
+    return player_schema.dumps(player_info)

@@ -1,11 +1,9 @@
 from sqlalchemy import Enum
-from sqlalchemy_serializer import SerializerMixin
 from api import db
 from utils.position_enum import PositionEnum
 
 
-#class Player(db.Model, SerializerMixin):
-class Player():
+class Player(db.Model):
     __tablename__ = "players"
     player_id = db.Column(db.Integer, primary_key=True)
     position = db.Column(Enum(PositionEnum), unique=False, nullable=False)

@@ -1,4 +1,4 @@
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
+from marshmallow_sqlalchemy import SQLAlchemySchema
 
 from api.db_models.school import School
 

@@ -1,11 +1,7 @@
 import os
-
 import requests
-from sqlalchemy import Enum, event
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy_serializer import SerializerMixin
 from api import db
-from utils.position_enum import PositionEnum
 from utils.s3_utils import create_presigned_url
 
 
