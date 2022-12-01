@@ -15,11 +15,15 @@ def create_app():
     from api.controllers.players_controller import players_controller_bp
     app.register_blueprint(players_controller_bp)
 
+    from api.controllers.schools_controller import schools_controller_bp
+    app.register_blueprint(schools_controller_bp)
+
+
     CORS(app, CORS_ORIGINS=os.environ['CORS_ORIGINS'])
 
-    # import models, init db, and create tables
+    # import db_models, init db, and create tables
     # TODO: figure out better way to handle model imports
-    from api.models import player, player_stats
+    from api.db_models import player, player_stats, school
     db.init_app(app)
     with app.app_context():
         db.create_all()

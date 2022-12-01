@@ -1,10 +1,12 @@
+import os
 from sqlalchemy import Enum
-from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.ext.hybrid import hybrid_property
 from api import db
 from utils.position_enum import PositionEnum
+from utils.s3_utils import create_presigned_url
 
 
-class Player(db.Model, SerializerMixin):
+class Player(db.Model):
     __tablename__ = "players"
     player_id = db.Column(db.Integer, primary_key=True)
     position = db.Column(Enum(PositionEnum), unique=False, nullable=False)
@@ -17,6 +19,9 @@ class Player(db.Model, SerializerMixin):
     birth_date = db.Column(db.DateTime, unique=False, nullable=False)
     player_stats = db.relationship('PlayerStats', lazy=True)
 
+    @hybrid_property
+    def image_url(self):
+        return create_presigned_url(self.player_id, os.environ['PLAYER_IMG_BUCKET'], os.environ['PLAYER_IMG_PREFIX'])
 
-def __repr__(self):
-    return f"<Player {self.player_id} >"
+    def __repr__(self):
+        return f"<Player {self.player_id} >"
