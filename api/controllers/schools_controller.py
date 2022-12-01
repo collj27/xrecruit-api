@@ -41,7 +41,7 @@ def get_school_by_id(school_id):
 
     # convert school object to dict and add news articles
     school_dict = school_schema.dump(school)
-    school_dict['news_articles'] = news_articles
+    school_dict['news_articles'] = news_articles["items"]
 
     # serialize and return
     return json.dumps(school_dict)
