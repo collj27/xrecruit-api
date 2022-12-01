@@ -1,4 +1,3 @@
-from sqlalchemy_serializer import SerializerMixin
 from api import db
 
 
@@ -15,4 +14,4 @@ class PlayerStats(db.Model):
 
 
 def __repr__(self):
-    return f"<QBStats {self.stats_id} >"
+    return f"<PlayerStats {self.stats_id} >"

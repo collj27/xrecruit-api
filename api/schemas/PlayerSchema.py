@@ -1,27 +1,16 @@
 from marshmallow import fields
-from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
-from sqlalchemy import event
-
+from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from api.db_models.player import Player
-from api.db_models.player_stats import PlayerStats
+from api.schemas.PlayerStatsSchema import PlayerStatsSchema
+from marshmallow_sqlalchemy.fields import Nested
 from utils.position_enum import PositionEnum
 
 
-#@event.listens_for(PlayerStats, 'init')
-class PlayerSchema(SQLAlchemySchema):
+class PlayerSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = Player
         include_relationships = True
-        fields.Enum(PositionEnum)
 
-    player_id = auto_field()
-    #position = auto_field()
-    first_name = auto_field()
-    last_name = auto_field()
-    description = auto_field()
-    height = auto_field()
-    weight = auto_field()
-    high_school = auto_field()
-    birth_date = auto_field()
-    player_stats = auto_field()
-
+    player_stats = Nested(PlayerStatsSchema, many=True)
+    image_url = fields.String()  # explicitly define hybrid property
+    position = fields.Enum(PositionEnum, by_value=False)  # serialize enum by key
