@@ -3,7 +3,7 @@ import boto3
 
 def create_presigned_url(object_id, bucket, object_prefix):
     # Choose AWS CLI profile, If not mentioned, it would take default
-    object_name = object_prefix + object_id + ".jpg"
+    object_name = object_prefix + str(object_id) + ".jpg"
     expiration = 600
     # Generate a presigned URL for the S3 object
     s3_client = boto3.client('s3', region_name="us-east-1", config=boto3.session.Config(signature_version='s3v4', ))

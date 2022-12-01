@@ -1,7 +1,7 @@
 import os
 
 from flask import Blueprint
-from api.models.player import db, Player
+from api.db_models.player import db, Player
 from utils.s3_utils import create_presigned_url
 
 # create blueprint

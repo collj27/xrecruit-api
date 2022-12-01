@@ -1,10 +1,7 @@
-import os
-
+import json
 from flask import Blueprint
-from api.models.player import db, Player
-from api.models.school import School
-from utils.s3_utils import create_presigned_url
-import requests
+from api.db_models.school import School
+from api import db
 
 # create blueprint
 schools_controller_bp = Blueprint('schools_controller', __name__)
@@ -22,25 +19,29 @@ def get_schools():
 # fetch players by id
 @schools_controller_bp.route('/schools/<school_id>', methods=['GET'])
 def get_school_by_id(school_id):
-
     # get school object
-    school_info = db.get_or_404(School, school_id).to_dict()
-    search_query = school_info['name'] + " football news"
+    school = db.get_or_404(School, school_id).to_dict()
+    return json.dumps(school)
+    #search_query = school.name + " football news"
 
     # TODO: adjust these parameters
-    #https://developers.google.com/custom-search/v1/introduction
+    # https://developers.google.com/custom-search/v1/introduction
     # get news articles by school name
-    request_string = "https://www.googleapis.com/customsearch/v1?" \
-                     "key={api_key}" \
-                     "&cx={search_engine_id}" \
-                     "&q={query}" \
-                     "&num=5".format(api_key=os.environ['GOOGLE_API_KEY'],
-                                     search_engine_id=os.environ['SEARCH_ENGINE_ID'], query=search_query)
-    news = requests.get(request_string).json()
-    school_info['news'] = news['items']
+   # request_string = "https://www.googleapis.com/customsearch/v1?" \
+   #                  "key={api_key}" \
+   #                  "&cx={search_engine_id}" \
+   #                  "&q={query}" \
+   #                  "&num=5".format(api_key=os.environ['GOOGLE_API_KEY'],
+   #                                  search_engine_id=os.environ['SEARCH_ENGINE_ID'], query=search_query)
+   # search_resp = requests.get(request_string).json()
+    #school.news_articles = search_resp
+    #print(school.image_url)
+
+    # school_info['news'] = news['items']
+    # school_info.news = news['items']
 
     # add logo url
-    url = create_presigned_url(school_id, os.environ['SCHOOL_IMG_BUCKET'], os.environ['SCHOOL_IMG_PREFIX'])
-    school_info['school_img_url'] = url
+    # url = create_presigned_url(school_id, os.environ['SCHOOL_IMG_BUCKET'], os.environ['SCHOOL_IMG_PREFIX'])
+    # school_info['school_img_url'] = url
 
-    return school_info
+
