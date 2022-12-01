@@ -1,6 +1,7 @@
 import os
 
 import requests
+from marshmallow import Schema
 from sqlalchemy import Enum, event
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
@@ -14,23 +15,19 @@ class School(db.Model):
     school_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True, nullable=False)
 
-
-    def __init__(self):
-        self.image_url = None
-        self.video_url = None
-        self.news_articles = None
+    @hybrid_property
+    def image_url(self):
+        return self.name
+    #def __init__(self):
+   #     self.image_url = None
+    #    self.video_url = None
+   #     self.news_articles = None
 
     def __repr__(self):
         return f"<School {self.school_id}>"
 
-    def to_dict(self):
-        # TODO: generalize this
-        instance_dict = self.__dict__
-        instance_dict.pop('_sa_instance_state')
-        return instance_dict
 
-
-@event.listens_for(School, 'load')
+#@event.listens_for(School, 'load')
 def receive_load(target, context):
     # fetch imagee url after load
     target.image_url = create_presigned_url(target.school_id, os.environ['SCHOOL_IMG_BUCKET'],

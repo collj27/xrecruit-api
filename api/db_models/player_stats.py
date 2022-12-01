@@ -2,7 +2,7 @@ from sqlalchemy_serializer import SerializerMixin
 from api import db
 
 
-class PlayerStats(db.Model, SerializerMixin):
+class PlayerStats(SerializerMixin):
     stats_id = db.Column(db.Integer, primary_key=True)
     player_id = db.Column(db.Integer, db.ForeignKey("players.player_id"), nullable=False)
     season = db.Column(db.Integer, unique=False, nullable=False)
