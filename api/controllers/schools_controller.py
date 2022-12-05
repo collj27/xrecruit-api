@@ -41,7 +41,14 @@ def get_school_by_id(school_id):
 
     # convert school object to dict and add news articles
     school_dict = school_schema.dump(school)
-    school_dict['news_articles'] = news_articles["items"]
+
+    #TODO: better error handling - make separate route?
+    # TODO: look at google search api limits
+    try:
+        school_dict['news_articles'] = news_articles["items"]
+    except Exception:
+        school_dict['news_articles'] = None
+
 
     # serialize and return
     return json.dumps(school_dict)
