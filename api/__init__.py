@@ -18,6 +18,10 @@ def create_app():
     from api.controllers.schools_controller import schools_controller_bp
     app.register_blueprint(schools_controller_bp)
 
+    from api.controllers.payments_controller import payments_controller_bp
+    app.register_blueprint(payments_controller_bp)
+
+
 
     CORS(app, CORS_ORIGINS=os.environ['CORS_ORIGINS'])
 
