@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 # TODO: add flask migration
 def create_app():
     app = Flask(__name__)
@@ -20,8 +21,6 @@ def create_app():
 
     from api.controllers.payments_controller import payments_controller_bp
     app.register_blueprint(payments_controller_bp)
-
-
 
     CORS(app, CORS_ORIGINS=os.environ['CORS_ORIGINS'])
 
