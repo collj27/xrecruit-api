@@ -1,7 +1,7 @@
 from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-from api.db_models.school import School
+from api.models.school import School
 
 
 class SchoolSchema(SQLAlchemyAutoSchema):

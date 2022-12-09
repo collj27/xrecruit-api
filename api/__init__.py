@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 # TODO: add flask migration
 def create_app():
     app = Flask(__name__)
@@ -21,13 +22,11 @@ def create_app():
     from api.controllers.payments_controller import payments_controller_bp
     app.register_blueprint(payments_controller_bp)
 
-
-
     CORS(app, CORS_ORIGINS=os.environ['CORS_ORIGINS'])
 
-    # import db_models, init db, and create tables
+    # import models, init db, and create tables
     # TODO: figure out better way to handle model imports
-    from api.db_models import player, player_stats, school
+    from api.models import player, player_stats, school, payment
     db.init_app(app)
     with app.app_context():
         db.create_all()

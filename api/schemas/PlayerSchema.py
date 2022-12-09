@@ -1,6 +1,6 @@
 from marshmallow import fields
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from api.db_models.player import Player
+from api.models.player import Player
 from api.schemas.PlayerStatsSchema import PlayerStatsSchema
 from marshmallow_sqlalchemy.fields import Nested
 from utils.position_enum import PositionEnum

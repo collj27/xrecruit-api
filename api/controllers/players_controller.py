@@ -1,5 +1,5 @@
 from flask import Blueprint
-from api.db_models.player import db, Player
+from api.models.player import db, Player
 from api.schemas.PlayerSchema import PlayerSchema
 from api.schemas.PlayerStatsSchema import PlayerStatsSchema
 

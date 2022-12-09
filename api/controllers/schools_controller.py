@@ -3,7 +3,7 @@ import os
 
 import requests
 from flask import Blueprint
-from api.db_models.school import School
+from api.models.school import School
 from api import db
 from api.schemas.SchoolSchema import SchoolSchema
 
