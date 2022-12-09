@@ -24,9 +24,9 @@ def create_app():
 
     CORS(app, CORS_ORIGINS=os.environ['CORS_ORIGINS'])
 
-    # import db_models, init db, and create tables
+    # import models, init db, and create tables
     # TODO: figure out better way to handle model imports
-    from api.db_models import player, player_stats, school
+    from api.models import player, player_stats, school, payment
     db.init_app(app)
     with app.app_context():
         db.create_all()

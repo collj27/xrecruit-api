@@ -1,5 +1,5 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from api.db_models.player_stats import PlayerStats
+from api.models.player_stats import PlayerStats
 
 
 class PlayerStatsSchema(SQLAlchemyAutoSchema):
