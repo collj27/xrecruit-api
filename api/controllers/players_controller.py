@@ -10,12 +10,11 @@ player_stats_schema = PlayerStatsSchema()
 
 
 # fetch all players
-# @players_controller_bp.route('/players', methods=['GET'])
-# def get_players():
-#   result_list = db.session.execute(db.select(Player)).scalars().all()
-#  player_list = [result.to_dict() for result in result_list]
-
-# return player_list
+@players_controller_bp.route('/players', methods=['GET'])
+def get_players():
+    result_list = db.session.query(Player)#db.session.execute(db.select(Player)).scalars().all()
+    #player_list = [player_schema.dumps(result) for result in result_list]
+    return player_schema.dumps(result_list, many=True)
 
 
 # fetch players by id

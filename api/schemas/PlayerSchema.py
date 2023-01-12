@@ -11,6 +11,6 @@ class PlayerSchema(SQLAlchemyAutoSchema):
         model = Player
         include_relationships = True
 
-    player_stats = Nested(PlayerStatsSchema, many=True)
+    # player_stats = Nested(PlayerStatsSchema, many=True)
     image_url = fields.String()  # explicitly define hybrid property
     position = fields.Enum(PositionEnum, by_value=False)  # serialize enum by key
