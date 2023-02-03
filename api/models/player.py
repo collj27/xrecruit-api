@@ -17,7 +17,7 @@ class Player(db.Model):
     weight = db.Column(db.Integer, unique=False, nullable=False)
     high_school = db.Column(db.String(30), unique=False, nullable=False)
     birth_date = db.Column(db.DateTime, unique=False, nullable=False)
-    player_stats = db.relationship('PlayerStats', lazy=True)
+    #player_stats = db.relationship('PlayerStats', lazy=True)
 
     @hybrid_property
     def image_url(self):
