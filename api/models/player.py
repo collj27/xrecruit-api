@@ -17,6 +17,8 @@ class Player(db.Model):
     weight = db.Column(db.Integer, unique=False, nullable=False)
     high_school = db.Column(db.String(30), unique=False, nullable=False)
     birth_date = db.Column(db.DateTime, unique=False, nullable=False)
+    video_url = db.Column(db.String(200), unique=False, nullable=True) #TODO: should this be stored on S3, like the images?
+
     #player_stats = db.relationship('PlayerStats', lazy=True)
 
     @hybrid_property
