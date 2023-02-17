@@ -1,7 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from flask_migrate import Migrate, upgrade, migrate
+from flask_migrate import Migrate, upgrade, migrate, init
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -33,6 +33,11 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+        try:
+            init(directory='migrations', multidb=False)
+        except:
+            print("migrations folder already exists")
+
         migrate(directory='migrations')
         upgrade(directory='migrations')
 
