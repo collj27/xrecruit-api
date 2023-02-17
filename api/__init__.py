@@ -1,13 +1,13 @@
 import os
 from flask import Flask
 from flask_cors import CORS
-from flask_migrate import Migrate
+from flask_migrate import Migrate, upgrade, migrate
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-migrate = Migrate()
+migrate_config = Migrate()
 
-# TODO: add flask migration
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
@@ -29,9 +29,11 @@ def create_app():
     # TODO: figure out better way to handle model imports
     from api.models import player, player_stats, school, payment
     db.init_app(app)
-    migrate.init_app(app, db)
+    migrate_config.init_app(app, db)
 
     with app.app_context():
         db.create_all()
+        migrate(directory='migrations')
+        upgrade(directory='migrations')
 
     return app
