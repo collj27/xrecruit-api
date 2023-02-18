@@ -33,12 +33,25 @@ def create_app():
 
     with app.app_context():
         db.create_all()
-        try:
-            init(directory='migrations', multidb=False)
-        except:
-            print("migrations folder already exists")
-
-        migrate(directory='migrations')
-        upgrade(directory='migrations')
 
     return app
+        # change to if migrqtions directory doesn't exist
+        #try:
+            #init(directory='migrations', multidb=False)
+        #except:
+           # print("migrations folder already exists")
+
+    # if migrations folder doesn't exist, create it
+
+    # if alembic version in db exists:
+        # delete version
+        # run  migrate/upgrade
+    # else
+        # migrate/ upgrade
+
+# works the first time
+        #theen folder already exists and migration
+        #migrate(directory='migrations')
+       # upgrade(directory='migrations')
+
+
